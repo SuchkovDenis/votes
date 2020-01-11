@@ -38,7 +38,7 @@ public class JwtAuthenticationController {
 		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 		UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 		String token = jwtTokenUtil.generateToken(userDetails);
-		log.info("Authenitcate user with roles: {}",userDetails.getAuthorities());
+		log.info("Authenticate user with roles: {}",userDetails.getAuthorities());
 		return ResponseEntity.ok(new JwtResponseDto(token));
 	}
 
