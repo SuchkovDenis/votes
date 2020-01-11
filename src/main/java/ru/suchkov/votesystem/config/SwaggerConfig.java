@@ -9,7 +9,7 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-import java.util.HashSet;
+import java.util.Collections;
 
 import static com.google.common.base.Predicates.not;
 import static springfox.documentation.builders.PathSelectors.regex;
@@ -33,7 +33,7 @@ public class SwaggerConfig {
                                 ),
                                 "GPL 3.0",
                                 "https://www.gnu.org/licenses/gpl-3.0.en.html",
-                                new HashSet<>()
+                                Collections.emptySet()
                         )
                 )
                 .select()

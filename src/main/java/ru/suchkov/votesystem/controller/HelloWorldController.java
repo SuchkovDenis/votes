@@ -1,14 +1,13 @@
 package ru.suchkov.votesystem.controller;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.suchkov.votesystem.CurrentUser;
 import ru.suchkov.votesystem.dto.DishDto;
 import ru.suchkov.votesystem.mapper.DishMapper;
 import ru.suchkov.votesystem.model.Dish;
+import ru.suchkov.votesystem.model.User;
 
 import java.math.BigDecimal;
 
@@ -28,7 +27,8 @@ public class HelloWorldController {
 	}
 
 	@GetMapping("/helloAll")
-	public String helloAll(@AuthenticationPrincipal CurrentUser user) {
+	public String helloAll(@AuthenticationPrincipal User user) {
+		System.out.println(user);
 		return "Hello All";
 	}
 
