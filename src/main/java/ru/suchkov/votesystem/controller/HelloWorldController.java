@@ -15,10 +15,13 @@ import java.math.BigDecimal;
 @CrossOrigin()
 public class HelloWorldController {
 
-	@Autowired
-	DishMapper dishMapper;
+	final DishMapper dishMapper;
 
-	@RequestMapping({ "/hello" })
+    public HelloWorldController(DishMapper dishMapper) {
+        this.dishMapper = dishMapper;
+    }
+
+    @RequestMapping({ "/hello" })
 	public String hello() {
 		return "Hello World";
 	}
