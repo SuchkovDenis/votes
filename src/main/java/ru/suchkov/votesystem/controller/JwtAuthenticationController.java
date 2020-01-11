@@ -31,19 +31,14 @@ public class JwtAuthenticationController {
 
 	@Qualifier("jwtUserDetailsService")
 	@Autowired
-	private UserDetailsService jwtInMemoryUserDetailsService;
+	private UserDetailsService userDetailsService;
 
 	@PostMapping(value = "/authenticate")
-	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequestDto authenticationRequest)
+	public ResponseEntity<JwtResponseDto> createAuthenticationToken(@RequestBody JwtRequestDto authenticationRequest)
 			throws Exception {
-
 		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
-
-		final UserDetails userDetails = jwtInMemoryUserDetailsService
-				.loadUserByUsername(authenticationRequest.getUsername());
-
-		final String token = jwtTokenUtil.generateToken(userDetails);
-
+		UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+		String token = jwtTokenUtil.generateToken(userDetails);
 		log.info("Authenitcate user with roles: {}",userDetails.getAuthorities());
 		return ResponseEntity.ok(new JwtResponseDto(token));
 	}
