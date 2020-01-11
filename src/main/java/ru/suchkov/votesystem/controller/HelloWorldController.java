@@ -1,8 +1,7 @@
 package ru.suchkov.votesystem.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.suchkov.votesystem.dto.DishDto;
 import ru.suchkov.votesystem.mapper.DishMapper;
@@ -12,7 +11,7 @@ import java.math.BigDecimal;
 
 // todo пониать что за пользователь сейчас
 @RestController
-@CrossOrigin()
+@CrossOrigin
 public class HelloWorldController {
 
 	final DishMapper dishMapper;
@@ -21,12 +20,12 @@ public class HelloWorldController {
         this.dishMapper = dishMapper;
     }
 
-    @RequestMapping({ "/hello" })
+    @GetMapping("/hello")
 	public String hello() {
 		return "Hello World";
 	}
 
-	@RequestMapping({ "/helloAdmin" })
+	@GetMapping("/helloAdmin")
 	public DishDto helloAdmin() {
 		Dish dish = new Dish();
 		dish.setName("Окорок");
@@ -34,7 +33,7 @@ public class HelloWorldController {
 		return dishMapper.dishToDishDto(dish);
 	}
 
-	@RequestMapping({ "/helloUser" })
+	@GetMapping("/helloUser")
 	public String helloUser() {
 		return "Hello User";
 	}

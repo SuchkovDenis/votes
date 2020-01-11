@@ -33,7 +33,7 @@ public class JwtAuthenticationController {
 	@Autowired
 	private UserDetailsService jwtInMemoryUserDetailsService;
 
-	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
+	@PostMapping(value = "/authenticate")
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequestDto authenticationRequest)
 			throws Exception {
 
@@ -51,7 +51,6 @@ public class JwtAuthenticationController {
 	private void authenticate(String username, String password) throws Exception {
 		Objects.requireNonNull(username);
 		Objects.requireNonNull(password);
-
 		try {
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
 		} catch (DisabledException e) {
