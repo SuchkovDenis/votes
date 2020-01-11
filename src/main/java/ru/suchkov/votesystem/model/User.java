@@ -1,6 +1,7 @@
 package ru.suchkov.votesystem.model;
 
 import lombok.Data;
+import lombok.ToString;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import java.util.Collection;
 
 @Entity
 @Data
+@ToString(exclude = "password")
 @Table(name = "users")
 public class User {
 
