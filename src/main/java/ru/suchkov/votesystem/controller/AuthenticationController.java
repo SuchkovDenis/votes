@@ -1,16 +1,14 @@
 package ru.suchkov.votesystem.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
+import ru.suchkov.votesystem.service.UserService;
 import ru.suchkov.votesystem.util.JwtTokenUtil;
 import ru.suchkov.votesystem.dto.JwtRequestDto;
 import ru.suchkov.votesystem.dto.JwtResponseDto;
@@ -20,25 +18,28 @@ import java.util.Objects;
 @RestController
 @CrossOrigin
 @Slf4j
-public class JwtAuthenticationController {
+public class AuthenticationController {
 
-	@Autowired
-	private AuthenticationManager authenticationManager;
+	private final AuthenticationManager authenticationManager;
 
-	@Autowired
-	private JwtTokenUtil jwtTokenUtil;
+	private final JwtTokenUtil jwtTokenUtil;
 
-	@Qualifier("userService")
-	@Autowired
-	private UserDetailsService userDetailsService;
+	private final UserService userService;
+
+	public AuthenticationController(AuthenticationManager authenticationManager, JwtTokenUtil jwtTokenUtil,
+									UserService userService) {
+		this.authenticationManager = authenticationManager;
+		this.jwtTokenUtil = jwtTokenUtil;
+		this.userService = userService;
+	}
 
 	@PostMapping("/authenticate")
 	public ResponseEntity<JwtResponseDto> createAuthenticationToken(@RequestBody JwtRequestDto authenticationRequest)
 			throws Exception {
 		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
-		UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
-		String token = jwtTokenUtil.generateToken(userDetails);
-		log.info("Authenticate user with roles: {}",userDetails.getAuthorities());
+		UserDetails user = userService.loadUserByUsername(authenticationRequest.getUsername());
+		String token = jwtTokenUtil.generateToken(user);
+		log.info("Authenticate user with roles: {}",user.getAuthorities());
 		return ResponseEntity.ok(new JwtResponseDto(token));
 	}
 

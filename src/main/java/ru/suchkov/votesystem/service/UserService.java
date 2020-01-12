@@ -6,33 +6,23 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.suchkov.votesystem.model.Role;
-import ru.suchkov.votesystem.model.User;
-
-import java.util.Collections;
+import ru.suchkov.votesystem.repository.UserRepository;
 
 @Service
 @Slf4j
 public class UserService implements UserDetailsService {
 
+	private final UserRepository userRepository;
+
+	public UserService(UserRepository userRepository) {
+		this.userRepository = userRepository;
+	}
+
 	@Override
 	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		if ("user".equals(username)) {
-			log.info("load by userName");
-			// login: user
-			// password: password
-			User user = new User();
-			user.setId(1L);
-			user.setUsername("user");
-			user.setPassword("$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6");
-			Role role = new Role();
-			role.setName("ROLE_ADMIN");
-			user.setRoles(Collections.singleton(role));
-			return user;
-		} else {
-			throw new UsernameNotFoundException("User not found with username: " + username);
-		}
+		return userRepository.findByUsername(username)
+				.orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
 	}
 
 }
