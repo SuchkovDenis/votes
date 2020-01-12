@@ -3,6 +3,7 @@ package ru.suchkov.votesystem.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 @Data
@@ -15,4 +16,10 @@ public class Restaurant {
 
     @Column(name = "name")
     private String name;
+
+    @OneToMany(mappedBy = "restaurant")
+    private Collection<Vote> votes;
+
+    @OneToMany(mappedBy = "restaurant")
+    private Collection<Dish> dishes;
 }
