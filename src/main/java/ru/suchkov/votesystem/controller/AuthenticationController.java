@@ -16,7 +16,6 @@ import ru.suchkov.votesystem.dto.JwtResponseDto;
 import java.util.Objects;
 
 @RestController
-@CrossOrigin
 @Slf4j
 public class AuthenticationController {
 
