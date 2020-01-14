@@ -9,8 +9,8 @@ import ru.suchkov.votesystem.model.Restaurant;
 public interface RestaurantMapper {
 
     @Mapping(source = "name", target = "title")
-    RestaurantDto dishToDishDto(Restaurant dish);
+    RestaurantDto toDto(Restaurant dish);
 
     @Mapping(source = "title", target = "name")
-    Restaurant dishDtoToDish(RestaurantDto dishDto);
+    Restaurant fromDto(RestaurantDto dishDto);
 }

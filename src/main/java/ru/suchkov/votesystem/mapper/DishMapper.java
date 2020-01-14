@@ -9,8 +9,8 @@ import ru.suchkov.votesystem.model.Dish;
 public interface DishMapper {
 
     @Mapping(source = "name", target = "title")
-    DishDto dishToDishDto(Dish dish);
+    DishDto toDto(Dish dish);
 
     @Mapping(source = "title", target = "name")
-    Dish dishDtoToDish(DishDto dishDto);
+    Dish fromDto(DishDto dishDto);
 }

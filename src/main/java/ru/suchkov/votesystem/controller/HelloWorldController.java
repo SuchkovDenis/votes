@@ -35,7 +35,7 @@ public class HelloWorldController {
 		Dish dish = new Dish();
 		dish.setName("Окорок");
 		dish.setPrice(new BigDecimal(12));
-		return dishMapper.dishToDishDto(dish);
+		return dishMapper.toDto(dish);
 	}
 
 	@GetMapping("/helloUser")
