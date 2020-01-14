@@ -7,7 +7,7 @@ import java.util.Collection;
 
 @Entity
 @Data
-@Table(name = "restaurant")
+@Table(name = "restaurants")
 public class Restaurant {
 
     @Id
