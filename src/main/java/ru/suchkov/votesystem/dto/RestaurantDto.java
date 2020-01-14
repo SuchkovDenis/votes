@@ -3,7 +3,7 @@ package ru.suchkov.votesystem.dto;
 import lombok.Data;
 
 @Data
-public class DishDto {
+public class RestaurantDto {
+    private Long id;
     private String title;
-    private double price;
 }
