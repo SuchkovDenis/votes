@@ -8,9 +8,7 @@ import ru.suchkov.votesystem.model.User;
 import ru.suchkov.votesystem.service.VoteService;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import static ru.suchkov.votesystem.util.Roles.USER;
 
