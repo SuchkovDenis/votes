@@ -11,6 +11,7 @@ public interface DishMapper {
     @Mapping(source = "name", target = "title")
     DishDto toDto(Dish dish);
 
+    @Mapping(target = "restaurant", ignore = true)
     @Mapping(source = "title", target = "name")
     Dish fromDto(DishDto dishDto);
 }
