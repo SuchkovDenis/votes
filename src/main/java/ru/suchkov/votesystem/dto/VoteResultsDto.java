@@ -1,10 +1,13 @@
 package ru.suchkov.votesystem.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.util.List;
+import java.util.Map;
 
 @Data
+@AllArgsConstructor
 public class VoteResultsDto {
-    private List<Long> restaurantIds;
+    private Map<Long, Long> results;
+
 }
