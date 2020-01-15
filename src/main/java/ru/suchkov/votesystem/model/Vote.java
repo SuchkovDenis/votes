@@ -1,12 +1,14 @@
 package ru.suchkov.votesystem.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
+@NoArgsConstructor
 @Table(name = "votes")
 public class Vote {
 
@@ -22,6 +24,12 @@ public class Vote {
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
 
-    @Column(name = "date")
-    private LocalDate date;
+    @Column(name = "date_time")
+    private LocalDateTime date;
+
+    public Vote(User user, Restaurant restaurant, LocalDateTime date) {
+        this.user = user;
+        this.restaurant = restaurant;
+        this.date = date;
+    }
 }
