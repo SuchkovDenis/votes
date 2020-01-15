@@ -32,7 +32,7 @@ create table dishes (
 
 create table votes (
    id bigint auto_increment,
-   date date,
+   date_time datetime,
    user_id bigint,
    restaurant_id bigint,
    foreign key (user_id) references users(id),

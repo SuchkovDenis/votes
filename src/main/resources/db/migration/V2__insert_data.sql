@@ -33,8 +33,8 @@ values (1, 'Today Fish 1', 10.0, CURRENT_DATE(), 1),
        (11, 'Yesterday Steak 2', 220.0, DATEADD('DAY',-1, CURRENT_DATE()), 2);
 
 insert into votes
-values (1, DATEADD('DAY',-1, CURRENT_DATE()), 1, 1),
-       (2, DATEADD('DAY',-1, CURRENT_DATE()), 2, 1),
-       (3, DATEADD('DAY',-1, CURRENT_DATE()), 3, 1),
-       (4, DATEADD('DAY',-1, CURRENT_DATE()), 4, 2),
-       (5, DATEADD('DAY',-1, CURRENT_DATE()), 5, 2);
+values (1, DATEADD('DAY',-1, CURRENT_TIMESTAMP), 1, 1),
+       (2, DATEADD('DAY',-1, CURRENT_TIMESTAMP), 2, 1),
+       (3, DATEADD('DAY',-1, CURRENT_TIMESTAMP), 3, 1),
+       (4, DATEADD('DAY',-1, CURRENT_TIMESTAMP), 4, 2),
+       (5, DATEADD('DAY',-1, CURRENT_TIMESTAMP), 5, 2);
