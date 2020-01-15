@@ -9,5 +9,4 @@ import java.util.Map;
 @AllArgsConstructor
 public class VoteResultsDto {
     private Map<Long, Long> results;
-
 }
