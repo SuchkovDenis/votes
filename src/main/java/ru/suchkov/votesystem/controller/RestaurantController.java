@@ -44,12 +44,6 @@ public class RestaurantController {
         return restaurantMapper.toDto(restaurantRepository.save(restaurantMapper.fromDto(restaurantDto)));
     }
 
-//    @DeleteMapping("/{restaurantId}")
-//    @Secured(ADMIN)
-//    public void delete(@PathVariable Long restaurantId) {
-//        restaurantRepository.deleteById(restaurantId);
-//    }
-
     @GetMapping("/{restaurantId}/menu/{date}")
     public List<DishDto> getMenu(@PathVariable Long restaurantId,
                                  @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
