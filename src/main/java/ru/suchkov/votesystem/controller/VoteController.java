@@ -2,17 +2,17 @@ package ru.suchkov.votesystem.controller;
 
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.suchkov.votesystem.model.User;
 import ru.suchkov.votesystem.service.VoteService;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static ru.suchkov.votesystem.util.Roles.USER;
 
 @RestController
-@RequestMapping("/vote")
+@RequestMapping("/votes")
 public class VoteController {
 
     private final VoteService voteService;
@@ -25,5 +25,10 @@ public class VoteController {
     @Secured(USER)
     public boolean vote(@PathVariable Long restaurantId, @AuthenticationPrincipal User user) {
         return voteService.vote(restaurantId, user);
+    }
+
+    @GetMapping
+    public List<Long> getResults()  {
+        return voteService.getResults().stream().map(vote -> vote.getRestaurant().getId()).collect(Collectors.toList());
     }
 }

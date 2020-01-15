@@ -2,11 +2,9 @@ package ru.suchkov.votesystem.dto;
 
 import lombok.Data;
 
-import java.time.LocalDate;
-import java.util.Map;
+import java.util.List;
 
 @Data
 public class VoteResultsDto {
-    private LocalDate date;
-    private Map<String, Integer> results;
+    private List<Long> restaurantIds;
 }

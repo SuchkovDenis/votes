@@ -12,6 +12,7 @@ import ru.suchkov.votesystem.repository.VoteRepository;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -55,5 +56,9 @@ public class VoteService {
             log.info("Invalid restaurant id {}", restaurantId);
             return false;
         }
+    }
+
+    public List<Vote> getResults() {
+        return voteRepository.findAllByDateAfter();
     }
 }
