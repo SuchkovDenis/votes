@@ -1,6 +1,7 @@
 package ru.suchkov.votesystem.controller;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import ru.suchkov.votesystem.dto.DishDto;
 import ru.suchkov.votesystem.dto.RestaurantDto;
@@ -12,6 +13,8 @@ import ru.suchkov.votesystem.repository.RestaurantRepository;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static ru.suchkov.votesystem.util.Roles.ADMIN;
 
 @RestController
 @RequestMapping("/restaurants")
@@ -36,14 +39,16 @@ public class RestaurantController {
     }
 
     @PostMapping
+    @Secured(ADMIN)
     public RestaurantDto create(@RequestBody RestaurantDto restaurantDto) {
         return restaurantMapper.toDto(restaurantRepository.save(restaurantMapper.fromDto(restaurantDto)));
-    } // TODO create update
-
-    @DeleteMapping("/{restaurantId}")
-    public void delete(@PathVariable Long restaurantId) {
-        restaurantRepository.deleteById(restaurantId);
     }
+
+//    @DeleteMapping("/{restaurantId}")
+//    @Secured(ADMIN)
+//    public void delete(@PathVariable Long restaurantId) {
+//        restaurantRepository.deleteById(restaurantId);
+//    }
 
     @GetMapping("/{restaurantId}/menu/{date}")
     public List<DishDto> getMenu(@PathVariable Long restaurantId,
