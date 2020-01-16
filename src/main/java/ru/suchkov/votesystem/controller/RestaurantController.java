@@ -1,6 +1,8 @@
 package ru.suchkov.votesystem.controller;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
@@ -37,25 +39,36 @@ public class RestaurantController {
     }
 
     @GetMapping
+    @ApiOperation(value = "Get all restaurants", notes = "Get list of all existing restaurants",
+            responseContainer = "List", response = RestaurantDto.class)
     public List<RestaurantDto> getAll() {
        return restaurantRepository.findAll().stream().map(restaurantMapper::toDto).collect(Collectors.toList());
     }
 
     @PostMapping
     @Secured(ADMIN)
+    @ApiOperation(value = "Create or update restaurant", notes = "Create or update restaurant",
+            response = RestaurantDto.class)
     public RestaurantDto create(@RequestBody RestaurantDto restaurantDto) {
         return restaurantMapper.toDto(restaurantRepository.save(restaurantMapper.fromDto(restaurantDto)));
     }
 
     @GetMapping("/{restaurantId}/menu/{date}")
-    public List<DishDto> getMenu(@PathVariable Long restaurantId,
+    @ApiOperation(value = "Menu of restaurant", notes = "Get menu of restaurant for some day",
+            responseContainer = "List", response = DishDto.class)
+    public List<DishDto> getMenu(@ApiParam(value = "Id value of restaurant", required = true)
+                                     @PathVariable Long restaurantId,
+                                 @ApiParam(value = "data in ISO format")
                                  @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         return dishRepository.findAllByRestaurantIdAndAndDate(restaurantId, date).stream().map(dishMapper::toDto)
                 .collect(Collectors.toList());
     }
 
     @GetMapping("/{restaurantId}/menu")
-    public List<DishDto> getMenu(@PathVariable Long restaurantId) {
+    @ApiOperation(value = "Today's menu of restaurant", notes = "Get today's menu of restaurant",
+            responseContainer = "List", response = DishDto.class)
+    public List<DishDto> getMenu(@ApiParam(value = "Id value of restaurant", required = true)
+                                     @PathVariable Long restaurantId) {
         return getMenu(restaurantId, LocalDate.now());
     }
 }
