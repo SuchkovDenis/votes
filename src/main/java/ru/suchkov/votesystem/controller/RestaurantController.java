@@ -1,5 +1,6 @@
 package ru.suchkov.votesystem.controller;
 
+import io.swagger.annotations.Api;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +17,10 @@ import java.util.stream.Collectors;
 
 import static ru.suchkov.votesystem.util.Roles.ADMIN;
 
+@Api(tags="Restaurants")
 @RestController
-@RequestMapping("/restaurants")
+@RequestMapping(value = "/restaurants", name="Restaurant resource",
+        produces = "application/json", consumes = "application/json")
 public class RestaurantController {
 
     private final RestaurantRepository restaurantRepository;

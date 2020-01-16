@@ -1,5 +1,6 @@
 package ru.suchkov.votesystem.controller;
 
+import io.swagger.annotations.Api;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -12,8 +13,10 @@ import java.util.Map;
 
 import static ru.suchkov.votesystem.util.Roles.USER;
 
+@Api(tags="Votes")
 @RestController
-@RequestMapping("/votes")
+@RequestMapping(value = "/votes", name="Vote resource",
+        produces = "application/json", consumes = "application/json")
 public class VoteController {
 
     private final VoteService voteService;

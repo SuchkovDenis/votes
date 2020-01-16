@@ -1,5 +1,6 @@
 package ru.suchkov.votesystem.controller;
 
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,7 +16,9 @@ import ru.suchkov.votesystem.dto.JwtResponseDto;
 
 import java.util.Objects;
 
+@Api(tags="Authentication")
 @RestController
+@RequestMapping(name="Authentication token provider", produces = "application/json", consumes = "application/json")
 @Slf4j
 public class AuthenticationController {
 

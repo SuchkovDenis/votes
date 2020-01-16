@@ -1,5 +1,6 @@
 package ru.suchkov.votesystem.controller;
 
+import io.swagger.annotations.Api;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import ru.suchkov.votesystem.dto.DishDto;
@@ -12,8 +13,10 @@ import java.time.LocalDate;
 
 import static ru.suchkov.votesystem.util.Roles.ADMIN;
 
+@Api(tags="Dishes")
 @RestController
-@RequestMapping("/dishes")
+@RequestMapping(value = "/dishes", name="Dish resource",
+        produces = "application/json", consumes = "application/json")
 public class DishController {
 
     private final DishRepository dishRepository;
