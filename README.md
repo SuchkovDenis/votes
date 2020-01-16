@@ -32,6 +32,6 @@ Password from all users: `password`
 To authenticate in a system do `POST` request to `/authenticate`, request body should contains `username` and `password`.
 Curl example of authentication request:
 ```
-curl -X POST "http://localhost:8080/authenticate" -H "accept: application/json" -H "Content-Type: application/json" -H "X-XSRF-TOKEN: 6d0213e9-4766-42c0-9c17-39aed77e1a33" -d "{ \"password\": \"password\", \"username\": \"admin_and_user\"}"
+curl -X POST "http://localhost:8080/authenticate" -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"password\": \"password\", \"username\": \"admin_and_user\"}"
 ```
 After it, if it is successful, you will recieve responce with jwt token. This jwt token should be used for authorization. Add header to your request: `Authorization: Bearer <token>`
