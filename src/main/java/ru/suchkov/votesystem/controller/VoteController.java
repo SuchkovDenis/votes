@@ -34,7 +34,8 @@ public class VoteController {
     @Secured(USER)
     @ApiOperation(value = "Vote for restaurant", notes = "Vote for some restaurant",
             response = Boolean.class, authorizations = {@Authorization(value = "Bearer")})
-    public boolean vote(@ApiParam(value = "Id value of restaurant", required = true) @PathVariable Long restaurantId,
+    public boolean vote(@ApiParam(value = "Id value of restaurant", required = true, defaultValue = "1")
+                            @PathVariable Long restaurantId,
                         @ApiIgnore @AuthenticationPrincipal User user) {
         return voteService.vote(restaurantId, user);
     }

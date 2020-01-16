@@ -38,7 +38,7 @@ public class DishController {
     @ApiOperation(value = "Create or update dish", notes = "Create or update dish in certain restaurant",
             response = DishDto.class, authorizations = {@Authorization(value = "Bearer")})
     public DishDto create(@RequestBody DishDto dishDto,
-                          @ApiParam(value = "Id value of restaurant", required = true)
+                          @ApiParam(value = "Id value of restaurant", required = true, defaultValue = "1")
                           @PathVariable Long restaurantId) {
         Dish dish = dishMapper.fromDto(dishDto);
         dish.setRestaurant(restaurantRepository.getOne(restaurantId));
@@ -50,7 +50,7 @@ public class DishController {
     @Secured(ADMIN)
     @ApiOperation(value = "Delete dish", notes = "Delete dish by id",
             authorizations = {@Authorization(value = "Bearer")})
-    public void delete(@ApiParam(value = "Id value of dish", required = true)
+    public void delete(@ApiParam(value = "Id value of dish", required = true, defaultValue = "1")
                            @PathVariable Long dishId) {
         dishRepository.deleteById(dishId);
     }

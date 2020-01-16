@@ -58,9 +58,9 @@ public class RestaurantController {
     @GetMapping("/{restaurantId}/menu/{date}")
     @ApiOperation(value = "Menu of restaurant", notes = "Get menu of restaurant for some day",
             responseContainer = "List", response = DishDto.class, authorizations = {@Authorization(value = "Bearer")})
-    public List<DishDto> getMenu(@ApiParam(value = "Id value of restaurant", required = true)
+    public List<DishDto> getMenu(@ApiParam(value = "Id value of restaurant", required = true, defaultValue = "1")
                                      @PathVariable Long restaurantId,
-                                 @ApiParam(value = "data in ISO format")
+                                 @ApiParam(value = "data in ISO format", required = true, defaultValue = "2020-01-15")
                                  @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         return dishRepository.findAllByRestaurantIdAndAndDate(restaurantId, date).stream().map(dishMapper::toDto)
                 .collect(Collectors.toList());
@@ -69,7 +69,7 @@ public class RestaurantController {
     @GetMapping("/{restaurantId}/menu")
     @ApiOperation(value = "Today's menu of restaurant", notes = "Get today's menu of restaurant",
             responseContainer = "List", response = DishDto.class, authorizations = {@Authorization(value = "Bearer")})
-    public List<DishDto> getMenu(@ApiParam(value = "Id value of restaurant", required = true)
+    public List<DishDto> getMenu(@ApiParam(value = "Id value of restaurant", required = true, defaultValue = "1")
                                      @PathVariable Long restaurantId) {
         return getMenu(restaurantId, LocalDate.now());
     }
