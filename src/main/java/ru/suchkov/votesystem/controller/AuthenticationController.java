@@ -37,7 +37,9 @@ public class AuthenticationController {
 	}
 
 	@PostMapping("/authenticate")
-	@ApiOperation(value = "Authenticate in a system", notes = "Provide an authentication token",
+	@ApiOperation(value = "Authenticate in a system.",
+			notes = "Provide an authentication token. After successfully login you should use special header" +
+			"in all your requests: \"Authorization: <RECEIVED_TOKEN>\"",
 			response = JwtResponseDto.class)
 	public ResponseEntity<JwtResponseDto> createAuthenticationToken(@RequestBody JwtRequestDto authenticationRequest)
 			throws Exception {
