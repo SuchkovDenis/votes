@@ -27,7 +27,7 @@ create table dishes (
     price double,
     date date,
     restaurant_id bigint,
-    foreign key (restaurant_id) references dishes(id)
+    foreign key (restaurant_id) references restaurants(id)
 );
 
 create table votes (

@@ -4,6 +4,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.Authorization;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import ru.suchkov.votesystem.dto.DishDto;
@@ -18,8 +19,7 @@ import static ru.suchkov.votesystem.util.Roles.ADMIN;
 
 @Api(tags="Dishes")
 @RestController
-@RequestMapping(value = "/dishes", name="Dish resource",
-        produces = "application/json", consumes = "application/json")
+@RequestMapping(value = "/dishes", name="Dish resource", produces = MediaType.APPLICATION_JSON_VALUE)
 public class DishController {
 
     private final DishRepository dishRepository;
@@ -33,10 +33,10 @@ public class DishController {
         this.dishMapper = dishMapper;
     }
 
-    @PostMapping("/{restaurantId}")
+    @PostMapping(value = "/{restaurantId}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Secured(ADMIN)
     @ApiOperation(value = "Create or update dish", notes = "Create or update dish in certain restaurant",
-            response = DishDto.class)
+            response = DishDto.class, authorizations = {@Authorization(value = "Bearer")})
     public DishDto create(@RequestBody DishDto dishDto,
                           @ApiParam(value = "Id value of restaurant", required = true)
                           @PathVariable Long restaurantId) {

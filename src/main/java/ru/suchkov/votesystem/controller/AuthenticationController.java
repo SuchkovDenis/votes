@@ -3,6 +3,7 @@ package ru.suchkov.votesystem.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -19,7 +20,8 @@ import java.util.Objects;
 
 @Api(tags="Authentication")
 @RestController
-@RequestMapping(name = "Authentication token provider", produces = "application/json", consumes = "application/json")
+@RequestMapping(name = "Authentication token provider", produces = MediaType.APPLICATION_JSON_VALUE,
+		consumes = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
 public class AuthenticationController {
 
@@ -39,7 +41,7 @@ public class AuthenticationController {
 	@PostMapping("/authenticate")
 	@ApiOperation(value = "Authenticate in a system.",
 			notes = "Provide an authentication token. After successfully login you should use special header" +
-			"in all your requests: \"Authorization: <RECEIVED_TOKEN>\"",
+			"in all your requests: \"Authorization: Bearer <token>\"",
 			response = JwtResponseDto.class)
 	public ResponseEntity<JwtResponseDto> createAuthenticationToken(@RequestBody JwtRequestDto authenticationRequest)
 			throws Exception {
