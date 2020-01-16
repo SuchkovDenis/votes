@@ -3,6 +3,7 @@ package ru.suchkov.votesystem.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.Authorization;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import ru.suchkov.votesystem.dto.DishDto;
@@ -47,7 +48,8 @@ public class DishController {
 
     @DeleteMapping("/{dishId}")
     @Secured(ADMIN)
-    @ApiOperation(value = "Delete dish", notes = "Delete dish by id")
+    @ApiOperation(value = "Delete dish", notes = "Delete dish by id",
+            authorizations = {@Authorization(value = "Bearer")})
     public void delete(@ApiParam(value = "Id value of dish", required = true)
                            @PathVariable Long dishId) {
         dishRepository.deleteById(dishId);

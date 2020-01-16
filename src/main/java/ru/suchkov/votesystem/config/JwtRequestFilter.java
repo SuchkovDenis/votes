@@ -31,10 +31,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws ServletException, IOException {
-		String jwtToken = request.getHeader("Authorization");
-
 		String username = null;
-		if (jwtToken != null) {
+		String jwtToken = null;
+		String header;
+		header = request.getHeader("Authorization");
+		if (header != null && header.startsWith("Bearer ")) {
+			jwtToken = header.substring(6);
 			try {
 				username = jwtTokenUtil.getUsernameFromToken(jwtToken);
 			} catch (IllegalArgumentException e) {
