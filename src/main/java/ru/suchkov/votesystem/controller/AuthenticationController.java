@@ -3,6 +3,7 @@ package ru.suchkov.votesystem.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -47,9 +48,11 @@ public class AuthenticationController {
 		try {
 			authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 		} catch (NullPointerException e) {
-			return ResponseEntity.badRequest().build();
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		} catch (BadCredentialsException e) {
-			return ResponseEntity.notFound().build();
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		} catch (DisabledException e) {
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		}
 		UserDetails user = userService.loadUserByUsername(authenticationRequest.getUsername());
 		String token = jwtTokenUtil.generateToken(user);
