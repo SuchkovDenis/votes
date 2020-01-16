@@ -22,10 +22,15 @@ Console of embedded DB H2 available on the following page: [H2 Console](http://l
 
 ## Users info
 There are two types of users: with role `USER` and with role `ADMIN`. 
+
 Here is a list of users with their roles:
+
 user1, user2, user3, user4, user5: `ROLE_USER`
+
 admin: `ROLE_ADMIN`
+
 admin_and_user: `ROLE_ADMIN` and `ROLE_USER`
+
 Password from all users: `password`
 
 ## Authorization and Authentication
