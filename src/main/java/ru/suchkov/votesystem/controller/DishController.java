@@ -1,6 +1,8 @@
 package ru.suchkov.votesystem.controller;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import ru.suchkov.votesystem.dto.DishDto;
@@ -32,7 +34,11 @@ public class DishController {
 
     @PostMapping("/{restaurantId}")
     @Secured(ADMIN)
-    public DishDto create(@RequestBody DishDto dishDto, @PathVariable Long restaurantId) {
+    @ApiOperation(value = "Create or update dish", notes = "Create or update dish in certain restaurant",
+            response = DishDto.class)
+    public DishDto create(@RequestBody DishDto dishDto,
+                          @ApiParam(value = "Id value of restaurant", required = true)
+                          @PathVariable Long restaurantId) {
         Dish dish = dishMapper.fromDto(dishDto);
         dish.setRestaurant(restaurantRepository.getOne(restaurantId));
         dish.setDate(LocalDate.now());
@@ -41,7 +47,9 @@ public class DishController {
 
     @DeleteMapping("/{dishId}")
     @Secured(ADMIN)
-    public void delete(@PathVariable Long dishId) {
+    @ApiOperation(value = "Delete dish", notes = "Delete dish by id")
+    public void delete(@ApiParam(value = "Id value of dish", required = true)
+                           @PathVariable Long dishId) {
         dishRepository.deleteById(dishId);
     }
 }
