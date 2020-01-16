@@ -43,24 +43,23 @@ public class AuthenticationController {
 			notes = "Provide an authentication token. After successfully login you should use special header" +
 			"in all your requests: \"Authorization: Bearer <token>\"",
 			response = JwtResponseDto.class)
-	public ResponseEntity<JwtResponseDto> createAuthenticationToken(@RequestBody JwtRequestDto authenticationRequest)
-			throws Exception {
-		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+	public ResponseEntity<JwtResponseDto> createAuthenticationToken(@RequestBody JwtRequestDto authenticationRequest) {
+		try {
+			authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+		} catch (NullPointerException e) {
+			return ResponseEntity.badRequest().build();
+		} catch (BadCredentialsException e) {
+			return ResponseEntity.notFound().build();
+		}
 		UserDetails user = userService.loadUserByUsername(authenticationRequest.getUsername());
 		String token = jwtTokenUtil.generateToken(user);
 		log.info("Authenticate user with roles: {}",user.getAuthorities());
 		return ResponseEntity.ok(new JwtResponseDto(token));
 	}
 
-	private void authenticate(String username, String password) throws Exception {
+	private void authenticate(String username, String password) throws NullPointerException  {
 		Objects.requireNonNull(username);
 		Objects.requireNonNull(password);
-		try {
-			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-		} catch (DisabledException e) {
-			throw new Exception("USER_DISABLED", e);
-		} catch (BadCredentialsException e) {
-			throw new Exception("INVALID_CREDENTIALS", e);
-		}
+		authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
 	}
 }
