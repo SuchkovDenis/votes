@@ -8,10 +8,9 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-@ApiModel(value = "JWT Response",
-		description = "Contains authentication token")
+@ApiModel(value = "JWT Response", description = "Contains authentication token")
 public class JwtResponseDto  {
 
-	@ApiModelProperty(value = "Authentication token")
+	@ApiModelProperty(value = "Authentication token", example = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbl9hbmRfdXNsI")
 	private String jwtToken;
 }

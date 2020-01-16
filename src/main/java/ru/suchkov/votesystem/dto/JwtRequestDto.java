@@ -5,13 +5,12 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
-@ApiModel(value = "JWT Request",
-		description = "Should contains user's login and password")
+@ApiModel(value = "JWT Request", description = "Should contains user's login and password")
 public class JwtRequestDto {
 
-	@ApiModelProperty(value = "Login")
+	@ApiModelProperty(value = "Login", example = "admin_and_user", required = true)
 	private String username;
 
-	@ApiModelProperty(value = "Password")
+	@ApiModelProperty(value = "Password", example = "password", required = true)
 	private String password;
 }

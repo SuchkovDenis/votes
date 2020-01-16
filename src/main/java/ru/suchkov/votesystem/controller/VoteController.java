@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.suchkov.votesystem.dto.VoteResultsDto;
 import ru.suchkov.votesystem.model.User;
 import ru.suchkov.votesystem.service.VoteService;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,7 +35,7 @@ public class VoteController {
     @ApiOperation(value = "Vote for restaurant", notes = "Vote for some restaurant",
             response = Boolean.class, authorizations = {@Authorization(value = "Bearer")})
     public boolean vote(@ApiParam(value = "Id value of restaurant", required = true) @PathVariable Long restaurantId,
-                        @AuthenticationPrincipal User user) {
+                        @ApiIgnore @AuthenticationPrincipal User user) {
         return voteService.vote(restaurantId, user);
     }
 
