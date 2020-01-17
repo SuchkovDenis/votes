@@ -33,7 +33,7 @@ public class VoteController {
     @PostMapping("/{restaurantId}")
     @Secured(USER)
     @ApiOperation(value = "Vote for restaurant", notes = "Vote for some restaurant",
-            response = Boolean.class, authorizations = {@Authorization(value = "Bearer")})
+            response = Boolean.class, authorizations = {@Authorization(value = "Basic")})
     public boolean vote(@ApiParam(value = "Id value of restaurant", required = true, defaultValue = "1")
                             @PathVariable Long restaurantId,
                         @ApiIgnore @AuthenticationPrincipal User user) {
@@ -42,7 +42,7 @@ public class VoteController {
 
     @GetMapping
     @ApiOperation(value = "Get results", notes = "Get results of voting",
-            response = VoteResultsDto.class, authorizations = {@Authorization(value = "Bearer")})
+            response = VoteResultsDto.class, authorizations = {@Authorization(value = "Basic")})
     public VoteResultsDto getResults()  {
         Map<Long, Long> map = new HashMap<>();
         voteService.getResults().forEach(vote -> {

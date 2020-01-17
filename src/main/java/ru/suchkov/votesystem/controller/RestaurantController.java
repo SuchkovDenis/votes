@@ -42,7 +42,7 @@ public class RestaurantController {
     @GetMapping
     @ApiOperation(value = "Get all restaurants", notes = "Get list of all existing restaurants",
             responseContainer = "List", response = RestaurantDto.class,
-            authorizations = {@Authorization(value = "Bearer")})
+            authorizations = {@Authorization(value = "Basic")})
     public List<RestaurantDto> getAll() {
        return restaurantRepository.findAll().stream().map(restaurantMapper::toDto).collect(Collectors.toList());
     }
@@ -57,7 +57,7 @@ public class RestaurantController {
 
     @GetMapping("/{restaurantId}/menu/{date}")
     @ApiOperation(value = "Menu of restaurant", notes = "Get menu of restaurant for some day",
-            responseContainer = "List", response = DishDto.class, authorizations = {@Authorization(value = "Bearer")})
+            responseContainer = "List", response = DishDto.class, authorizations = {@Authorization(value = "Basic")})
     public List<DishDto> getMenu(@ApiParam(value = "Id value of restaurant", required = true, defaultValue = "1")
                                      @PathVariable Long restaurantId,
                                  @ApiParam(value = "data in ISO format", required = true, defaultValue = "2020-01-15")
@@ -68,7 +68,7 @@ public class RestaurantController {
 
     @GetMapping("/{restaurantId}/menu")
     @ApiOperation(value = "Today's menu of restaurant", notes = "Get today's menu of restaurant",
-            responseContainer = "List", response = DishDto.class, authorizations = {@Authorization(value = "Bearer")})
+            responseContainer = "List", response = DishDto.class, authorizations = {@Authorization(value = "Basic")})
     public List<DishDto> getMenu(@ApiParam(value = "Id value of restaurant", required = true, defaultValue = "1")
                                      @PathVariable Long restaurantId) {
         return getMenu(restaurantId, LocalDate.now());

@@ -36,7 +36,7 @@ public class DishController {
     @PostMapping(value = "/{restaurantId}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Secured(ADMIN)
     @ApiOperation(value = "Create or update dish", notes = "Create or update dish in certain restaurant",
-            response = DishDto.class, authorizations = {@Authorization(value = "Bearer")})
+            response = DishDto.class, authorizations = {@Authorization(value = "Basic")})
     public DishDto create(@RequestBody DishDto dishDto,
                           @ApiParam(value = "Id value of restaurant", required = true, defaultValue = "1")
                           @PathVariable Long restaurantId) {
@@ -49,7 +49,7 @@ public class DishController {
     @DeleteMapping("/{dishId}")
     @Secured(ADMIN)
     @ApiOperation(value = "Delete dish", notes = "Delete dish by id",
-            authorizations = {@Authorization(value = "Bearer")})
+            authorizations = {@Authorization(value = "Basic")})
     public void delete(@ApiParam(value = "Id value of dish", required = true, defaultValue = "1")
                            @PathVariable Long dishId) {
         dishRepository.deleteById(dishId);
