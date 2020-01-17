@@ -19,6 +19,7 @@ import ru.suchkov.votesystem.service.UserService;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String[] AUTH_WHITELIST = {
+            "/", "/csrf",
             "/v2/api-docs",
             "/swagger-resources",
             "/swagger-resources/**",
