@@ -6,7 +6,6 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.Authorization;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import ru.suchkov.votesystem.dto.DishDto;
 import ru.suchkov.votesystem.dto.RestaurantDto;
@@ -19,9 +18,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static ru.suchkov.votesystem.util.Roles.ADMIN;
-
-@Api(tags="Restaurants", authorizations = {@Authorization(value = "Bearer")})
+@Api(tags="Restaurants")
 @RestController
 @RequestMapping(value = "/restaurants", name="Restaurant resource", produces = MediaType.APPLICATION_JSON_VALUE)
 public class RestaurantController {
@@ -45,14 +42,6 @@ public class RestaurantController {
             authorizations = {@Authorization(value = "Basic")})
     public List<RestaurantDto> getAll() {
        return restaurantRepository.findAll().stream().map(restaurantMapper::toDto).collect(Collectors.toList());
-    }
-
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    @Secured(ADMIN)
-    @ApiOperation(value = "Create or update restaurant", notes = "Create or update restaurant",
-            response = RestaurantDto.class, authorizations = {@Authorization(value = "Bearer")})
-    public RestaurantDto create(@RequestBody RestaurantDto restaurantDto) {
-        return restaurantMapper.toDto(restaurantRepository.save(restaurantMapper.fromDto(restaurantDto)));
     }
 
     @GetMapping("/{restaurantId}/menu/{date}")

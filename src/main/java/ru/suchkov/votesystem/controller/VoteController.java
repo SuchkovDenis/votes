@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.Authorization;
 import org.springframework.http.MediaType;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import ru.suchkov.votesystem.dto.VoteResultsDto;
@@ -15,8 +14,6 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static ru.suchkov.votesystem.util.Roles.USER;
 
 @Api(tags="Votes")
 @RestController
@@ -31,7 +28,6 @@ public class VoteController {
     }
 
     @PostMapping("/{restaurantId}")
-    @Secured(USER)
     @ApiOperation(value = "Vote for restaurant", notes = "Vote for some restaurant",
             response = Boolean.class, authorizations = {@Authorization(value = "Basic")})
     public boolean vote(@ApiParam(value = "Id value of restaurant", required = true, defaultValue = "1")

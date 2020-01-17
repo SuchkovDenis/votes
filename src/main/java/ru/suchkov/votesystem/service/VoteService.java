@@ -19,6 +19,8 @@ import java.util.Optional;
 @Slf4j
 public class VoteService {
 
+    private static final LocalTime DEAD_LINE = LocalTime.of(11, 0);
+
     private final VoteRepository voteRepository;
     private final RestaurantRepository restaurantRepository;
 
@@ -41,7 +43,7 @@ public class VoteService {
                 return true;
             } else {
                 vote = optionalVote.get();
-                if (LocalDateTime.now().isAfter(LocalDateTime.of(LocalDate.now(), LocalTime.of(11, 00)))) {
+                if (LocalDateTime.now().isAfter(LocalDateTime.of(LocalDate.now(), DEAD_LINE))) {
                     log.info("Decision did'not change for user {}", user);
                     return vote.getRestaurant().getId().equals(restaurantId);
                 } else {
